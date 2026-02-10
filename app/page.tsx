@@ -1,8 +1,8 @@
 'use client';
 
-import { fetchDictionaryEntry } from '@/lib/drupal-api';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { searchWord } from './actions';
 
 export default function SearchPage() {
   const [word, setWord] = useState('');
@@ -25,7 +25,7 @@ export default function SearchPage() {
     setIsLoading(true);
 
     try {
-      const entry = await fetchDictionaryEntry(word.trim());
+      const entry = await searchWord(word.trim());
 
       // Word not found - show error WITHOUT navigation
       if (entry === null) {
