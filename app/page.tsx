@@ -10,7 +10,7 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     // Clear any previous errors
@@ -31,7 +31,7 @@ export default function SearchPage() {
       if (entry === null) {
         setError(`Word "${word.trim()}" not found in the dictionary`);
         setIsLoading(false);
-        return; // Do NOT navigate
+        return;
       }
 
       // Success - navigate to word page
