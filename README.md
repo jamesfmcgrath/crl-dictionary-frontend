@@ -2,7 +2,7 @@
 
 Next.js 15 (App Router) application that consumes the Drupal Dictionary API to search and display word definitions.
 
-**Tech Stack:** Next.js 15 with App Router, TypeScript, Tailwind CSS, React 19  
+**Tech Stack:** Next.js 15 with App Router, TypeScript, Tailwind CSS, React 19
 **Note:** Using Next.js 15 to align with Charles River Laboratories' current tech stack.
 
 ## Prerequisites
@@ -21,7 +21,7 @@ npm install
 cp .env.example .env.local
 
 # In .env.local set the Drupal base URL, e.g.
-# DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
+# DRUPAL_BASE_URL=http://127.0.0.1:63577
 ```
 
 ## Development
