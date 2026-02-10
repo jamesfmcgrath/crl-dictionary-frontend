@@ -49,10 +49,38 @@ export async function fetchDictionaryEntry(
     // Extract first entry (filter ensures only one match)
     const entry = json.data[0];
 
+    // Normalise Drupal's field_definitions into a single string
+    const rawDefinitions = entry.attributes.field_definitions;
+    let normalizedDefinitions = '';
+
+    if (Array.isArray(rawDefinitions)) {
+      // Multi-value/long text: concatenate all `value` fields with double newlines
+      normalizedDefinitions = rawDefinitions
+        .map((item) =>
+          typeof item === 'string'
+            ? item
+            : typeof item?.value === 'string'
+            ? item.value
+            : ''
+        )
+        .filter(Boolean)
+        .join('\n\n');
+    } else if (typeof rawDefinitions === 'string') {
+      normalizedDefinitions = rawDefinitions;
+    } else if (
+      rawDefinitions &&
+      typeof rawDefinitions === 'object' &&
+      'value' in rawDefinitions &&
+      typeof (rawDefinitions as { value: unknown }).value === 'string'
+    ) {
+      // Single object with a `value` field
+      normalizedDefinitions = (rawDefinitions as { value: string }).value;
+    }
+
     // Transform JSON:API structure to app-level type
     return {
       word: entry.attributes.field_word,
-      definitions: entry.attributes.field_definitions,
+      definitions: normalizedDefinitions,
     };
   } catch (error) {
     // Network failures, JSON parse errors, etc.

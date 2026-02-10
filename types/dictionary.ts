@@ -12,7 +12,20 @@ export interface DrupalJsonApiEntry {
   id: string; // UUID
   attributes: {
     field_word: string;
-    field_definitions: string;
+    /**
+     * Drupal JSON:API can return text fields either as:
+     * - a simple string, or
+     * - an array of objects (for multi-value/long text) with a `value` property.
+     *
+     * We normalise this to a single string in `fetchDictionaryEntry`.
+     */
+    field_definitions:
+      | string
+      | {
+          value: string;
+          // Allow any extra properties Drupal might include
+          [key: string]: unknown;
+        }[];
     // Other fields exist but we only care about these
   };
 }
