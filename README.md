@@ -17,8 +17,8 @@ Next.js 15 (App Router) application that consumes the Drupal Dictionary API to s
 # Install dependencies
 npm install
 
-# Create environment file (copy and edit)
-cp .env.example .env.local
+# Create environment file
+touch .env.local
 
 # In .env.local set the Drupal base URL, e.g.
 # DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
@@ -90,4 +90,3 @@ The `SearchForm` component is tested in `__tests__/search.test.tsx` for:
 - **API error**: thrown error → inline API error message, **no navigation**.
 
 Jest is configured in `jest.config.mjs` (using `next/jest` for Next.js 15) and a global Jest DOM setup is defined in `jest.setup.ts`.
-
