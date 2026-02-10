@@ -67,6 +67,10 @@ The response is mapped to strongly-typed TypeScript interfaces in `types/diction
 
 This project uses **Jest** with **React Testing Library** to verify core search behavior.
 
+### TypeScript vs Jest in tests
+
+The test file `__tests__/search.test.tsx` uses Jest's global APIs (`jest.mock`, `jest.fn`, `describe`, `it`, `expect`) together with Next.js 15's Jest setup. At runtime this works correctly (tests pass), but TypeScript's understanding of the Jest namespace and globals can generate noisy editor warnings that don't reflect real failures. To keep the focus on behavior while avoiding type-only noise, this file is annotated with `// @ts-nocheck` at the top. This disables TypeScript checking for that test file only and is intentional for this technical exercise.
+
 ### Running tests
 
 ```bash
