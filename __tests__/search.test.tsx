@@ -22,6 +22,7 @@ const mockedSearchWord = jest.requireMock('@/app/actions')
 describe('SearchForm', () => {
   beforeEach(() => {
     mockedSearchWord.mockReset();
+    pushMock.mockReset();
   });
 
   it('shows validation error when submitting empty input', async () => {
@@ -56,7 +57,10 @@ describe('SearchForm', () => {
   });
 
   it('navigates to word page when word is found', async () => {
-    mockedSearchWord.mockResolvedValueOnce({ id: '1' });
+    mockedSearchWord.mockResolvedValueOnce({
+      word: 'hello',
+      definitions: 'noun: a greeting',
+    });
 
     render(<SearchForm />);
 
