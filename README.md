@@ -65,10 +65,29 @@ The response is mapped to strongly-typed TypeScript interfaces in `types/diction
 
 ## Testing
 
-Automated tests are planned but not yet wired up. The intent is to use Jest + React Testing Library to cover:
+This project uses **Jest** with **React Testing Library** to verify core search behavior.
 
-- Search form: word not found
-- Search form: word found
-- Search form: API error
+### Running tests
 
-Once the test tooling is added, tests will live under `__tests__/` and will be runnable via an `npm test` script.
+```bash
+# Run all tests once
+npm test
+
+# Watch mode during development
+npm run test:watch
+
+# Coverage report
+npm run test:coverage
+```
+
+### What is covered
+
+The `SearchForm` component is tested in `__tests__/search.test.tsx` for:
+
+- **Validation**: empty input shows an inline error and does **not** navigate.
+- **Word not found**: API returns `null` → inline "not found" error, **no navigation**.
+- **Word found**: successful result → navigates to `/word/[word]`.
+- **API error**: thrown error → inline API error message, **no navigation**.
+
+Jest is configured in `jest.config.mjs` (using `next/jest` for Next.js 15) and a global Jest DOM setup is defined in `jest.setup.ts`.
+
