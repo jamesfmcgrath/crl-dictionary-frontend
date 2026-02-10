@@ -17,8 +17,8 @@ Next.js 15 (App Router) application that consumes the Drupal Dictionary API to s
 # Install dependencies
 npm install
 
-# Create environment file
-touch .env.local
+# Create .env.local with your Drupal backend URL
+echo "DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site" > .env.local
 
 # In .env.local set the Drupal base URL, e.g.
 # DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
