@@ -13,14 +13,14 @@ export default function NotFound() {
           Word Not Found
         </h2>
         <p className="text-gray-600 mb-6">
-          This word doesn't exist in our dictionary. Try searching for a
+          This word doesn&apos;t exist in our dictionary. Try searching for a
           different word.
         </p>
         <Link
           href="/"
           className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
         >
-          ← Back to Search
+          Back to Search
         </Link>
       </div>
     </main>
