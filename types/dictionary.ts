@@ -19,13 +19,12 @@ export interface DrupalJsonApiEntry {
      *
      * We normalise this to a single string in `fetchDictionaryEntry`.
      */
-    field_definitions:
-      | string
-      | {
-          value: string;
-          // Allow any extra properties Drupal might include
-          [key: string]: unknown;
-        }[];
+    field_definitions: string | {
+      value: string;
+      format?: string | null;
+      // Allow any extra properties Drupal might include
+      [key: string]: unknown;
+    } | null;
     // Other fields exist but we only care about these
   };
 }

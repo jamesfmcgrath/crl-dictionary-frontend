@@ -49,31 +49,18 @@ export async function fetchDictionaryEntry(
     // Extract first entry (filter ensures only one match)
     const entry = json.data[0];
 
-    // Normalise Drupal's field_definitions into a single string
+    // Normalise Drupal's field_definitions into a single string.
+    // With cardinality 1, JSON:API returns either a string, a single object, or null.
     const rawDefinitions = entry.attributes.field_definitions;
     let normalizedDefinitions = '';
 
-    if (Array.isArray(rawDefinitions)) {
-      // Multi-value/long text: concatenate all `value` fields with double newlines
-      normalizedDefinitions = rawDefinitions
-        .map((item) =>
-          typeof item === 'string'
-            ? item
-            : typeof item?.value === 'string'
-            ? item.value
-            : ''
-        )
-        .filter(Boolean)
-        .join('\n\n');
-    } else if (typeof rawDefinitions === 'string') {
+    if (typeof rawDefinitions === 'string') {
       normalizedDefinitions = rawDefinitions;
     } else if (
       rawDefinitions &&
       typeof rawDefinitions === 'object' &&
-      'value' in rawDefinitions &&
-      typeof (rawDefinitions as { value: unknown }).value === 'string'
+      'value' in rawDefinitions
     ) {
-      // Single object with a `value` field
       normalizedDefinitions = (rawDefinitions as { value: string }).value;
     }
 
