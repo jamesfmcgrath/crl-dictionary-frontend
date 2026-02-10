@@ -21,7 +21,7 @@ npm install
 cp .env.example .env.local
 
 # In .env.local set the Drupal base URL, e.g.
-# DRUPAL_BASE_URL=http://127.0.0.1:63577
+# DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
 ```
 
 ## Development
