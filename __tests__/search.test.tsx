@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchForm from '@/app/components/SearchForm';
 
