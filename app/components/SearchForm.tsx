@@ -30,7 +30,6 @@ export default function SearchForm() {
       // Word not found - show error WITHOUT navigation
       if (entry === null) {
         setError(`Word "${word.trim()}" not found in the dictionary`);
-        setIsLoading(false);
         return;
       }
 
@@ -39,8 +38,9 @@ export default function SearchForm() {
     } catch {
       // API failure - show error WITHOUT navigation
       setError('Failed to connect to dictionary service. Please try again.');
-      setIsLoading(false);
       return;
+    } finally {
+      setIsLoading(false);
     }
   };
 
