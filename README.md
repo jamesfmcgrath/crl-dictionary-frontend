@@ -57,7 +57,7 @@ The frontend calls the Drupal JSON:API endpoint:
 GET /jsonapi/node/dictionary_entry?filter[field_word]={word}
 ```
 
-The response is mapped to strongly-typed TypeScript interfaces in `types/dictionary.ts`, and the fetch logic is centralized in `lib/drupal-api.ts`.
+Data flow: `SearchForm` (client, in `app/components/SearchForm.tsx`) invokes the `searchWord` server action in `app/actions.ts`, which calls `fetchDictionaryEntry` in `lib/drupal-api.ts`. The response is mapped to strongly-typed TypeScript interfaces in `types/dictionary.ts`.
 
 ## Environment Variables
 
@@ -69,7 +69,12 @@ This project uses **Jest** with **React Testing Library** to verify core search 
 
 ### TypeScript vs Jest in tests
 
-The test file `__tests__/search.test.tsx` uses Jest's global APIs (`jest.mock`, `jest.fn`, `describe`, `it`, `expect`) together with Next.js 15's Jest setup. At runtime this works correctly (tests pass), but TypeScript's understanding of the Jest namespace and globals can generate noisy editor warnings that don't reflect real failures. To keep the focus on behavior while avoiding type-only noise, this file is annotated with `// @ts-nocheck` at the top. This disables TypeScript checking for that test file only and is intentional for this technical exercise.
+The test file `__tests__/search.test.tsx` uses Jest's global APIs (`jest.mock`, `jest.fn`, `describe`, `it`, `expect`) together with Next.js 15's Jest setup. TypeScript is configured to understand these globals via `tsconfig.json`:
+
+- `compilerOptions.types` includes `"jest"` and `"@testing-library/jest-dom"`.
+- `@types/jest` is installed as a dev dependency.
+
+With this setup, `npx tsc --noEmit` runs cleanly (including tests) without disabling type checking.
 
 ### Running tests
 
