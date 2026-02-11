@@ -9,19 +9,40 @@ Next.js 15 (App Router) application that consumes the Drupal Dictionary API to s
 
 - Node.js 18.x or 20.x
 - npm
-- Running Drupal backend from `../crl-dictionary-backend` (DDEV)
+- A running Drupal backend exposing the Dictionary JSON:API, using **either**:
+  - The DDEV-based backend in `../crl-dictionary-backend`
+  - A standalone Drupal site with the `dictionary_import` module installed
 
 ## Setup
+
+You can point this frontend at **either** the DDEV backend repo or any Drupal site where you've installed the standalone `dictionary_import` module.
 
 ```bash
 # Install dependencies
 npm install
 
-# Create .env.local with your Drupal backend URL
-echo "DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site" > .env.local
+# Create .env.local (we'll edit it next)
+touch .env.local
+```
 
-# In .env.local set the Drupal base URL, e.g.
-# DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
+Then edit `.env.local` and set `DRUPAL_BASE_URL` to match the backend you are using:
+
+- **Option 1 – DDEV backend repo (full test project setup):**
+
+  ```bash
+  DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
+  ```
+
+- **Option 2 – Standalone `dictionary_import` module on your own Drupal site:**
+
+  ```bash
+  DRUPAL_BASE_URL=https://your-drupal-site.example.com
+  ```
+
+In both cases, the backend must expose:
+
+```text
+GET {DRUPAL_BASE_URL}/jsonapi/node/dictionary_entry?filter[field_word]={word}
 ```
 
 ## Development
