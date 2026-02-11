@@ -47,8 +47,12 @@ export default function SearchForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
+        <label htmlFor="search-word" className="sr-only">
+          Search for a word
+        </label>
         <input
           type="text"
+          id="search-word"
           value={word}
           onChange={(e) => setWord(e.target.value)}
           placeholder="Enter a word..."
@@ -58,7 +62,10 @@ export default function SearchForm() {
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+        <div
+          role="alert"
+          className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
+        >
           {error}
         </div>
       )}
