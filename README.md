@@ -25,17 +25,20 @@ npm install
 touch .env.local
 ```
 
-Then edit `.env.local` and set `DRUPAL_BASE_URL` to match the backend you are using:
+Then edit `.env.local` and set `DRUPAL_BASE_URL` to match your backend environment:
 
-- **Option 1 – DDEV backend repo (full test project setup):**
+- **Local development (DDEV, Lando, or similar):**
 
   ```bash
+  # Use HTTP for local development
+  # Local SSL certificates (self-signed) are rejected by Node.js by default
   DRUPAL_BASE_URL=http://crl-dictionary-backend.ddev.site
   ```
 
-- **Option 2 – Standalone `dictionary_import` module on your own Drupal site:**
+- **Production or staging Drupal site:**
 
   ```bash
+  # Use HTTPS for deployed environments with proper SSL certificates
   DRUPAL_BASE_URL=https://your-drupal-site.example.com
   ```
 
